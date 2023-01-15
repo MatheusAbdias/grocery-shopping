@@ -1,15 +1,18 @@
 package domain
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 )
 
 type User struct {
-	Id       uuid.UUID `json:"id"`
-	Name     string    `json:"name"`
-	Email    string    `json:"email"`
-	Password string    `json:"password"`
-	Role     string    `json:"role"`
+	Id       uuid.UUID `json:"id" db:"id"`
+	Name     string    `json:"name" db:"name"`
+	Email    string    `json:"email" db:"email"`
+	Password string    `json:"password" db:"password"`
+	Role     string    `json:"role" db:"role"`
+	Created  time.Time `json:"created" db:"created"`
 }
 
 func NewUser(user UserInputDTO) (*User, []error) {
@@ -23,6 +26,7 @@ func NewUser(user UserInputDTO) (*User, []error) {
 		Email:    user.Email,
 		Password: user.Password,
 		Role:     user.Role,
+		Created:  time.Now(),
 	}, nil
 }
 
